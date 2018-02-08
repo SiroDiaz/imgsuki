@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+sudo: true
+dist: trusty
+before_script:
+  - npm install -g mocha

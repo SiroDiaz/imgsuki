@@ -18,7 +18,7 @@ describe('Image convert tests', function () {
         done();
     });
 
-    it('should convert the file format from jpg to png', function (done) {
+    it('should convert the file format from jpg to png in the specified output', function (done) {
         var options = {
             format: 'png',
             output: upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.png'))
@@ -33,6 +33,31 @@ describe('Image convert tests', function () {
                 expect(type.ext).to.equal('png');
                 expect(type.mime).to.equal('image/png');
                 fs.unlinkSync(options.output);
+                done();
+            })
+            .catch(function (error) {
+                console.log(error);
+                expect(error).to.be.true;
+                done();
+            });
+    });
+
+    it('should convert the file format from jpg to png in the current directory', function (done) {
+        var options = {
+            format: 'png',
+            output: path.join(__dirname)
+        };
+        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
+
+        image.convert(filename, options)
+            .then(function (success) {
+                expect(success).to.be.true;
+                var bufferChunk = readChunk.sync(path.join(options.output, 'capella.png'), 0, 4100);
+                var type = fileType(bufferChunk);
+                expect(type).to.be.an('object');
+                expect(type.ext).to.equal('png');
+                expect(type.mime).to.equal('image/png');
+                fs.unlinkSync(path.join(options.output, 'capella.png'));
                 done();
             })
             .catch(function (error) {
