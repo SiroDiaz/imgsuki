@@ -4,3 +4,7 @@
 
 A command line tool for manipulate images with Node.JS.
 Do you like sushi? try suki!
+
+## License
+
+_imgsuki_ is licensed under the MIT License. (See LICENSE)
