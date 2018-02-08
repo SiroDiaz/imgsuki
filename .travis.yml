@@ -8,3 +8,7 @@ sudo: true
 dist: trusty
 before_script:
   - npm install -g mocha
+branches:
+  only:
+    - master
+    - develop
