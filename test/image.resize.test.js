@@ -8,7 +8,7 @@ var glob = require('glob');
 var expect = require('chai').expect;
 var image = require('./../lib/image');
 
-describe('Image function tests', function() {
+describe('Image resize tests', function() {
     it('Should not resize the image with width error', function (done) {
         var options = {};
         // image.resize('./sample-images/');
