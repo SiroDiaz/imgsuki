@@ -52,7 +52,7 @@ describe('Image resize tests', function() {
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
         image.resize(filename, options).then(function(success) {
-            expect(success).to.equal(true);
+            expect(success).to.be.true;
             var dimensions = sizeOf(options.output);
             expect(dimensions.width).to.equal(500);
             expect(dimensions.height).to.equal(300);
