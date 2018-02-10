@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require('./../lib/index');
+var path = require('path');
+var entry = path.resolve(process.cwd(), '..', 'lib', 'index.js');
+require.resolve(entry);

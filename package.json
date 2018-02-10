@@ -13,7 +13,7 @@
     "test": "node_modules/.bin/mocha test"
   },
   "pkg": {
-    "entrypoint": "bin",
+    "entrypoint": "bin/suki.js",
     "scripts": "lib/**/*.js",
     "targets": [
       "node6",
