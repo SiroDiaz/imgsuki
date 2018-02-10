@@ -21,9 +21,15 @@ describe('Image resize tests', function() {
 
     it('Should not resize the image with width error', function (done) {
         var options = {};
-        // image.resize('./sample-images/');
-        expect(image.resize('./sample-images/capella.jpg', options)).to.equal(false);
-        done();
+
+        image.resize(path.resolve(__dirname, 'sample-images', 'capella.jpg'), options)
+            .then(function (value) {
+                done();
+            })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('Should not resize and rewrite the image because required -y flag', function (done) {
@@ -31,8 +37,14 @@ describe('Image resize tests', function() {
             width: 300
         };
 
-        expect(image.resize('./sample-images/capella.jpg', options)).to.equal(false);
-        done();
+        image.resize('./sample-images/capella.jpg', options)
+            .then(function (value) {
+                done();
+            })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('Should resize and rewrite the image because of -y flag', function (done) {
@@ -75,7 +87,6 @@ describe('Image resize tests', function() {
                 done();
             })
             .catch(function (error) {
-                console.log(error);
                 expect(error).to.be.true;
                 done();
             });
@@ -108,7 +119,13 @@ describe('Image resize tests', function() {
         };
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
-        expect(image.resize(filename, options)).to.equal(false);
-        done();
+        image.resize(filename, options)
+            .then(function (value) {
+                done();
+            })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 });

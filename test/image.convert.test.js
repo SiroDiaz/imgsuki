@@ -14,8 +14,14 @@ describe('Image convert tests', function () {
         var options = {};
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
-        expect(image.convert(filename, options)).to.be.false;
-        done();
+        image.convert(filename, options)
+            .then(function (value) {
+                done();
+            })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('should convert the file format from jpg to png in the specified output', function (done) {
@@ -36,7 +42,6 @@ describe('Image convert tests', function () {
                 done();
             })
             .catch(function (error) {
-                console.log(error);
                 expect(error).to.be.true;
                 done();
             });

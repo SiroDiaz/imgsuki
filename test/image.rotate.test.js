@@ -15,8 +15,12 @@ describe('Image rotate tests', function () {
         };
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
-        expect(image.rotate(filename, undefined, options)).to.equal(false);
-        done();
+        image.rotate(filename, undefined, options)
+            .then(function (value) {  })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('should fail to rotate the image because file does not exist', function (done) {
@@ -25,8 +29,15 @@ describe('Image rotate tests', function () {
         };
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capell.jpg'));
 
-        expect(image.rotate(filename, 360, options)).to.equal(false);
-        done();
+        image.rotate(filename, 360, options)
+            .then(function (value) {
+                expect(value).to.be.false;
+                done();
+            })
+            .catch(function (error) {
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('should fail to rotate the image because degrees are not multiples of 90', function (done) {
@@ -35,8 +46,16 @@ describe('Image rotate tests', function () {
         };
         var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
-        expect(image.rotate(filename, 80, options)).to.equal(false);
-        done();
+        image.rotate(filename, 80, options)
+            .then(function (success) {
+                expect(success).to.be.true;
+                done();
+            })
+            .catch(function (error) {
+                console.log(error);
+                expect(error).to.equal(false);
+                done();
+            });
     });
 
     it('should rotate successfully the image 90 degrees', function (done) {
@@ -55,7 +74,7 @@ describe('Image rotate tests', function () {
                 done();
             })
             .catch(function (error) {
-                expect(error).to.not.equal(undefined);
+                expect(error).to.be.false;
                 done();
             });
     });
@@ -76,7 +95,7 @@ describe('Image rotate tests', function () {
                 done();
             })
             .catch(function (error) {
-                expect(error).to.equal(true);
+                expect(error).to.be.false;
                 done();
             });
     });
@@ -89,7 +108,7 @@ describe('Image rotate tests', function () {
 
         image.rotate(filename, -270, options)
             .then(function (success) {
-                expect(success).to.equal(true);
+                expect(success).to.be.true;
                 var dimensions = sizeOf(options.output);
                 expect(dimensions.width).to.equal(450);
                 expect(dimensions.height).to.equal(800);
@@ -97,7 +116,7 @@ describe('Image rotate tests', function () {
                 done();
             })
             .catch(function (error) {
-                expect(error).to.equal(true);
+                expect(error).to.be.false;
                 done();
             });
     });
