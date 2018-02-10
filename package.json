@@ -1,10 +1,10 @@
 {
   "name": "imgsuki",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A command line tool for manipulate images with Node.JS",
   "main": "index.js",
   "bin": {
-    "suki": "lib/suki.js"
+    "suki": "bin/suki.js"
   },
   "scripts": {
     "start": "node lib/index.js",
