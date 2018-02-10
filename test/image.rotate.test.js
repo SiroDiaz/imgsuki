@@ -52,7 +52,6 @@ describe('Image rotate tests', function () {
                 done();
             })
             .catch(function (error) {
-                console.log(error);
                 expect(error).to.equal(false);
                 done();
             });
