@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('fs-extra');
 var path = require('path');
 var upath = require('upath');
 var bluebird = require('bluebird');
@@ -11,18 +11,17 @@ var expect = require('chai').expect;
 var image = require('./../lib/image');
 
 describe('Image resize tests', function() {
-    after(function (done) {
-        var copyFile = path.resolve(__dirname, 'sample-images', 'copy-capella.jpg');
-        if(fs.existsSync(copyFile)) {
-            fs.unlinkSync(copyFile);
-        }
+    before(function (done) {
+        var from = path.resolve(__dirname, 'sample-images', 'capella.jpg');
+        var to = path.resolve(__dirname, 'sample-images', 'copy-capella.jpg');
+        fs.copySync(from, to);
         done();
     });
 
     it('Should not resize the image with width error', function (done) {
         var options = {};
 
-        image.resize(path.resolve(__dirname, 'sample-images', 'capella.jpg'), options)
+        image.resize(path.resolve(__dirname, 'sample-images', 'copy-capella.jpg'), options)
             .then(function (value) {
                 done();
             })
@@ -37,7 +36,7 @@ describe('Image resize tests', function() {
             width: 300
         };
 
-        image.resize('./sample-images/capella.jpg', options)
+        image.resize('./sample-images/copy-capella.jpg', options)
             .then(function (value) {
                 done();
             })
@@ -53,20 +52,17 @@ describe('Image resize tests', function() {
             yes: true
         };
 
-        var from = path.resolve(__dirname, 'sample-images', 'capella.jpg');
-        var to = path.resolve(__dirname, 'sample-images', 'copy-capella.jpg');
-        var readStream = fs.createReadStream(from);
-        var writeStream = fs.createWriteStream(to);
-        readStream.pipe(writeStream).end(function () {
-            image.resize(to, options)
-                .then(function (success) {
-                    expect(success).to.be.true;
-                    done();
-                })
-                .catch(function (error) {
-                    done();
-                });
-        });
+        var from = path.resolve(__dirname, 'sample-images', 'copy-capella.jpg');
+        image.resize(from, options)
+            .then(function (success) {
+                expect(success).to.be.true;
+                done();
+            })
+            .catch(function (error) {
+                console.log(error);
+                expect(error).to.be.false;
+                done();
+            });
     });
 
     it('Should resize as a squared image', function (done) {
@@ -74,7 +70,7 @@ describe('Image resize tests', function() {
             width: 300,
             output: path.resolve(__dirname, 'sample-images', 'f1.out.jpg')
         };
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
+        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'copy-capella.jpg'));
 
         image.resize(filename, options)
             .then(function (success) {
@@ -83,7 +79,6 @@ describe('Image resize tests', function() {
                 expect(dimensions).to.be.a('object');
                 expect(dimensions.width).to.equal(300);
                 expect(dimensions.height).to.equal(300);
-                fs.unlinkSync(options.output);
                 done();
             })
             .catch(function (error) {
@@ -98,14 +93,13 @@ describe('Image resize tests', function() {
             height: 300,
             output: path.resolve(__dirname, 'sample-images', 'f1.out.jpg')
         };
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
+        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'copy-capella.jpg'));
 
         image.resize(filename, options).then(function(success) {
             expect(success).to.be.true;
             var dimensions = sizeOf(options.output);
             expect(dimensions.width).to.equal(500);
             expect(dimensions.height).to.equal(300);
-            fs.unlinkSync(options.output);
             done();
         }).catch(function(error) {
             expect(error).to.equal(true);
@@ -117,7 +111,7 @@ describe('Image resize tests', function() {
         var options = {
             output: path.resolve(__dirname, 'sample-images', 'other', 'f1.out.jpg')
         };
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
+        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'copy-capella.jpg'));
 
         image.resize(filename, options)
             .then(function (value) {
