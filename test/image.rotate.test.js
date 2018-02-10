@@ -67,8 +67,8 @@ describe('Image rotate tests', function () {
             .then(function (success) {
                 expect(success).to.equal(true);
                 var dimensions = sizeOf(options.output);
-                expect(dimensions.width).to.equal(450);
-                expect(dimensions.height).to.equal(800);
+                expect(dimensions.width).to.equal(1451);
+                expect(dimensions.height).to.equal(1934);
                 fs.unlinkSync(options.output);
                 done();
             })
@@ -88,8 +88,8 @@ describe('Image rotate tests', function () {
             .then(function (success) {
                 expect(success).to.equal(true);
                 var dimensions = sizeOf(options.output);
-                expect(dimensions.width).to.equal(800);
-                expect(dimensions.height).to.equal(450);
+                expect(dimensions.width).to.equal(1934);
+                expect(dimensions.height).to.equal(1451);
                 fs.unlinkSync(options.output);
                 done();
             })
@@ -109,8 +109,8 @@ describe('Image rotate tests', function () {
             .then(function (success) {
                 expect(success).to.be.true;
                 var dimensions = sizeOf(options.output);
-                expect(dimensions.width).to.equal(450);
-                expect(dimensions.height).to.equal(800);
+                expect(dimensions.width).to.equal(1451);
+                expect(dimensions.height).to.equal(1934);
                 fs.unlinkSync(options.output);
                 done();
             })
