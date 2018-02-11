@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node lib/index.js",
-    "build": "node_modules/.bin/pkg bin/suki.js --out-dir=snapshots",
+    "build": "pkg lib/index.js --targets node8.9.0-linux,node8.9.0-macos,node8.9.0-win --out-dir=snapshot",
     "example": "node ./lib resize C:\\Users\\Usuario\\repositories\\imgsuki\\test\\sample-images\\capella.jpg -o capella.out.jpg -w 150 -h 100",
     "test": "node_modules/.bin/mocha test"
   },
