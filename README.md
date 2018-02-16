@@ -1,6 +1,7 @@
 # imgsuki
 
-[![Build Status](https://travis-ci.org/SiroDiaz/imgsuki.svg?branch=master)](https://travis-ci.org/SiroDiaz/imgsuki)
+[![Build Status](https://travis-ci.org/SiroDiaz/imgsuki.svg?branch=master&style=flat-square)](https://travis-ci.org/SiroDiaz/imgsuki)
+[![dependencies Status](https://david-dm.org/SiroDiaz/imgsuki/status.svg?style=flat-square)](https://david-dm.org/SiroDiaz/imgsuki)
 
 A command line tool for manipulate images with Node.JS.
 Do you like sushi? try suki!
