@@ -11,10 +11,11 @@ var image = require('./../lib/image');
 
 describe('Image convert tests', function () {
     it('should fail because no image format given', function (done) {
-        var options = {};
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
+        var options = {
+            input: upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'))
+        };
 
-        image.convert(filename, options)
+        image.convert(options)
             .then(function (value) {
                 done();
             })
@@ -27,10 +28,10 @@ describe('Image convert tests', function () {
     it('should convert the file format from jpg to png in the specified output', function (done) {
         var options = {
             format: 'png',
+            input: upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg')),
             output: upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.png'))
         };
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
-        image.convert(filename, options)
+        image.convert(options)
             .then(function (success) {
                 expect(success).to.be.true;
                 var bufferChunk = readChunk.sync(options.output, 0, 4100);
@@ -50,11 +51,11 @@ describe('Image convert tests', function () {
     it('should convert the file format from jpg to png in the current directory', function (done) {
         var options = {
             format: 'png',
+            input: upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg')),
             output: path.join(__dirname)
         };
-        var filename = upath.normalize(path.resolve(__dirname, 'sample-images', 'capella.jpg'));
 
-        image.convert(filename, options)
+        image.convert(options)
             .then(function (success) {
                 expect(success).to.be.true;
                 var bufferChunk = readChunk.sync(path.join(options.output, 'capella.png'), 0, 4100);
